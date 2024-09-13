@@ -1,11 +1,12 @@
 from fastapi.encoders import jsonable_encoder
-from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import Union, List, Any
 
+from starlette.responses import JSONResponse
+
 
 class JSendResponse(JSONResponse):
-    def _init_(self,
+    def __init__(self,
                  status: str,
                  data: Union[List[BaseModel], BaseModel, Any] = None,
                  message=None,
@@ -21,4 +22,4 @@ class JSendResponse(JSONResponse):
             encoded_data = jsonable_encoder(data)
             content["data"] = encoded_data
 
-        super()._init_(content=content if status_code != 204 else None, status_code=status_code, *args, **kwargs)
+        super().__init__(content=content if status_code != 204 else None, status_code=status_code, *args, **kwargs)

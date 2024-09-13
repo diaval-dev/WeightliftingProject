@@ -3,13 +3,12 @@ from app.utils.Utilities import Utilities
 
 
 class RepositoryGeneric:
-    def _init_(self, model, db):
+    def __init__(self, model, db):
         self.model = model
         self.db = db
 
-    def add(self, entity, user_token=""):
+    def add(self, entity):
         entity.created_at = Utilities.get_current_time()
-        entity.created_by = user_token
         self.db.add(entity)
         return entity
 

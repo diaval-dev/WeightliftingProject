@@ -1,13 +1,17 @@
-from fastapi import APIRouter
-from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
-from starlette.requests import Request
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+
+from app.competitors.CompetitorDto import CompetitorCreate
+from app.competitors.CompetitorService import CompetitorService
+from app.core.database import get_db
+from app.utils.Utilities import ResponseMessages
+from app.utils.jsend import JSendResponse
 
 competitor_router = APIRouter()
 
-templates = Jinja2Templates(directory="app/templates")
 
-
-@competitor_router.get("/", response_class=HTMLResponse)
-def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "message": "¡Hola, Nestor!"})
+@competitor_router.post("/")
+def create_competitor(competitor: CompetitorCreate, db: Session = Depends(get_db)):
+    service = CompetitorService(db)
+    competitor_id = service.create_competitor(competitor)
+    return JSendResponse(status="success", message=ResponseMessages.SUCCESS_QUERY, data=competitor_id)
