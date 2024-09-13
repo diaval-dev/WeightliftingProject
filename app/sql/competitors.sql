@@ -1,13 +1,12 @@
 create table competitors
 (
     competitor_id             uuid not null primary key,
+    type_competence           varchar,
     department                varchar,
     city                      varchar,
     competitor_name           varchar,
+    competitor_gender         varchar,
     competitor_category       varchar,
-    competitor_type_document  varchar,
-    competitor_document       varchar,
-    competitor_phone          varchar,
     competitor_birthdate      date,
     modality                  varchar,
     first_attempt             int,
