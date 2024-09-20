@@ -40,3 +40,6 @@ class CompetitorService:
         except SQLAlchemyError as e:
             session.rollback()
             raise NotFoundError(f"{self.form_name} Error {e} not found.")
+
+    def get_competitors(self, competitor_id):
+        pass
