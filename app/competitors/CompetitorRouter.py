@@ -12,7 +12,7 @@ from app.utils.jsend import JSendResponse
 competitor_router = APIRouter()
 
 
-@competitor_router.post("/")
+@competitor_router.post("/create")
 def create_competitor(competitor: CompetitorCreate, db: Session = Depends(get_db)):
     service = CompetitorService(db)
     competitor_id = service.create_competitor(competitor)
