@@ -16,3 +16,4 @@ pandas
 schedule
 apscheduler
 starlette~=0.27.0
+num2words~=0.5.13
